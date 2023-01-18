@@ -28,25 +28,26 @@ This app is deployed as a Docker container and can be easily run using `docker-c
 
 ### Deployment Steps
 
-1. Clone the repository:
+- 1. Clone the repository:
 
 ```
 git clone https://github.com/njts/tvap && cd tvap
 ```
 
-2. Open the `docker-compose.yml` file and set the necessary environment variables:
+- 2. Open the `docker-compose.yml` file and set the necessary environment variables:
 
 ```
 nano docker-compose.yml
 ```
 
-`
-SITE_ID=<your_site_id>
-KEY=<your_api_key>
-`
-Note: If you are runnig your own Plausible instance on a different machine or using the official plausible.io service, you will need to edit the `BASE` variable in the `docker-compose.yml` file to match the correct IP or hostname of your plausible instance. Also, in this situation, you can disable the `depends_on: plausible` in the `docker-compose.yml` file
+`SITE_ID=<your_site_id>`
+<br/><br/>
+`KEY=<your_api_key>`
 
-3. Start the container by running the following command:
+> **_NOTE:_** If you are runnig your own Plausible instance on a different machine or using the official plausible.io service, you will need to edit the `BASE` variable in the `docker-compose.yml` file to match the correct IP or hostname of your plausible instance. Also, in this situation, you can disable the `depends_on: plausible` in the `docker-compose.yml` file
+
+
+- 3. Start the container by running the following command:
 
 ```
 sudo docker-compose up -d
@@ -93,7 +94,6 @@ curl http://localhost:3000/visitors
 
 ```
 {{ partial "visitorcount.html" . }}
-
 ```
 
 ## Contribution
