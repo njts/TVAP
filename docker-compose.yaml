@@ -1,0 +1,15 @@
+services:
+  app:
+    image: xnct/tvap
+    environment:
+      - SITE_ID=<site_id>
+      - KEY=<api_key>
+       # Change the BASE line below if you're using Plausible.io
+       # Or your self-hosted plausible instance isn't in this host machine. Also disable the - plauisble depends
+      - BASE=plausible:8000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./tvap-logs:/app/logs
+    depends_on:
+      - plausible
