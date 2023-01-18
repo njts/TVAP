@@ -5,7 +5,7 @@
 TVAP (Total Visitors API Proxy ) is a simple and easy-to-use Plausible total visitors API proxy.
 This proxy API provides a convenient and secure way to display visitor count data from Plausible on a static website. It allows developers to easily integrate the functionality without the need to expose their Plausible API key or build a custom implementation.
 
-The API is built using Node.js and the Express framework, and utilizes the request-promise-native library to make API calls to Plausible. It also uses the memory-cache library for caching the visitor count data, which can be configured with a custom expiration time.
+The API was built using Node.js and the Express framework. It utilizes the request-promise-native library to make API calls to Plausible. Also, it uses the memory-cache library for caching the visitor count data, which can be configured with a custom expiration time.
 
 When a request is made to the API's endpoint, it first checks if the visitor count data is present in cache. If it is, the cached data is returned to the client. If the data is not present in cache, the API makes a request to Plausible's API using the provided API key and site ID. The returned data is then cached and returned to the client.
 
@@ -46,7 +46,7 @@ nano docker-compose.yml
 <br/><br/>
 `KEY=<your_api_key>`
 
-> **_NOTE:_** If you are runnig your own Plausible instance on a different machine or using the official plausible.io service, you will need to edit the `BASE` variable in the `docker-compose.yml` file to match the correct IP or hostname of your plausible instance. Also, in this situation, you can disable the `depends_on: plausible` in the `docker-compose.yml` file
+> **_NOTE:_** If you are running your own Plausible instance on a different machine or using the official plausible.io service, you will need to edit the `BASE` variable in the `docker-compose.yml` file to match the correct IP or hostname of your plausible instance. Also, in this situation, you can disable the `depends_on: plausible` in the `docker-compose.yml` file
 
 
 - 3. Start the container by running the following command:
