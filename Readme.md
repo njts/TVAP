@@ -59,7 +59,41 @@ You can test it using:
 ```
 curl http://localhost:3000/visitors
 ```
+## Nginx reverse proxy setup with SSL
 
+Install Nginx and certbot on your server:
+```
+sudo apt-get install nginx && sudo apt install -y nginx certbot python3-certbot-nginx
+```
+Create a new virtual host configuration file for your api:
+```
+/etc/nginx/sites-available/tvap
+```
+Add the following code to the file, replacing your_api.com with your domain name:
+```
+server {
+    listen 80;
+    listen [::]:80;
+    server_name your_api.com;
+
+    location / {
+      proxy_pass http://localhost:8080/;
+      proxy_set_header Host $host;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection upgrade;
+      proxy_set_header Accept-Encoding gzip;
+    }
+}
+```
+Complete the setup
+```
+sudo ln -s ../sites-available/tvap /etc/nginx/sites-enabled/tvap
+sudo certbot --non-interactive --redirect --agree-tos --nginx -d your_api.com -m your_email@example.com
+```
+```
+sudo nginx -t && sudo systemctl reload nginx
+```
+>  Alternatively, you can use [Cloudflare Tunnel](https://developers.cloudflare.com/tunnel/) for an easier reverse proxy integration.
 ## Integration examples
 
 ### Hugo CMS
