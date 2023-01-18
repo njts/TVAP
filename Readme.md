@@ -1,5 +1,7 @@
 # TVAP for Plausible Analytics
 
+![showcase](showcase.png)
+
 TVAP (Total Visitors API Proxy ) is a simple and easy-to-use Plausible total visitors API proxy.
 This proxy API provides a convenient and secure way to display visitor count data from Plausible on a static website. It allows developers to easily integrate the functionality without the need to expose their Plausible API key or build a custom implementation.
 
