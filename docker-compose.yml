@@ -1,0 +1,11 @@
+services:
+  app:
+    image: xnct/tvap
+    environment:
+      - SITE_ID=<site_id>
+      - KEY=<api_key>
+      - BASE=plausible.io
+    ports:
+      - 3000:3000
+    volumes:
+      - ./tvap-logs:/app/logs
