@@ -22,6 +22,45 @@ In addition to the core functionality, the API also includes security features s
 
 ## Deployment
 
+### Method 1: Running TVAP with Plausible as an add-on to the existing docker-dompose
+
+If you have a Plausible instance running on your own server, you can run the TVAP script on that same server to achieve low latency. This method involves adding the TVAP service to your existing Plausible Docker Compose file and running both services together. This will reduce the latency and improve the performance of the TVAP script as it communicates directly with the Plausible service. The steps to do this are as follows:
+
+- 1. Stop your existing Plausible Docker Compose.
+```
+sudo docker-compose dowm
+```
+- 2. Edit the docker-compose.yml file and add the following code snippet (check demo-docker-compose.yml):
+```
+app:
+    image: xnct/tvap
+    environment:
+      - SITE_ID=<site_id>
+      - KEY=<api_key>
+      - BASE=plausible:8000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./tvap-logs:/app/logs
+    depends_on:
+      - plausible
+```
+- Replace <site_id> and <api_key> with your own Plausible credentials.
+- Start the Docker Compose again.
+```
+sudo docker-compose up -d
+```
+This will start both the TVAP service and the Plausible service together. You can access the TVAP service on port 3000. Test it using:
+
+```
+curl http://localhost:3000/visitors
+```
+
+### Method 2: Running TVAP on a separate machine or with a hosted Plausible service
+
+This method involves running the TVAP script on a separate machine or with a hosted Plausible service. This method is useful if you do not have control over the machine running the Plausible service or if you prefer to run the TVAP script on a separate machine for any other reason.
+The steps to do this are as follows:
+
 This app is deployed as a Docker container and can be easily run using `docker-compose`.
 
 ### Prerequisites
@@ -37,7 +76,7 @@ This app is deployed as a Docker container and can be easily run using `docker-c
 git clone https://github.com/njts/tvap && cd tvap
 ```
 
-- 2. Open the `docker-compose.yml` file and set the necessary environment variables:
+- 2. Edit the `docker-compose.yml` file and set the necessary environment variables:
 
 ```
 nano docker-compose.yml
@@ -46,9 +85,10 @@ nano docker-compose.yml
 `SITE_ID=<your_site_id>`
 <br/><br/>
 `KEY=<your_api_key>`
+<br/><br/>
+`BASE=<plausible_base_url>`
 
-> **_NOTE:_** If you are running your own Plausible instance on a different machine or using the official plausible.io service, you will need to edit the `BASE` variable in the `docker-compose.yml` file to match the correct IP or hostname of your plausible instance. Also, in this situation, you can disable the `depends_on: plausible` in the `docker-compose.yml` file
-
+Replace <plausible_base_url> with the base URL of your hosted Plausible service or the IP address of the machine running the Plausible service.
 
 - 3. Start the container by running the following command:
 
