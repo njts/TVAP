@@ -1,4 +1,5 @@
 # TVAP for Plausible Analytics
+[![Docker pulls](https://img.shields.io/docker/pulls/xnct/tvap.svg)](https://hub.docker.com/r/xnct/tvap)
 
 ![showcase](showcase.png)
 
