@@ -30,7 +30,7 @@ If you have a Plausible instance running on your own server, you can run the TVA
 ```
 sudo docker-compose dowm
 ```
-- 2. Edit the docker-compose.yml file and add the following code snippet (check demo-docker-compose.yml):
+- 2. Edit the docker-compose.yml file and add the following code snippet:
 ```
 app:
     image: xnct/tvap
@@ -45,6 +45,7 @@ app:
     depends_on:
       - plausible
 ```
+(Check [example](https://github.com/njts/TVAP/blob/master/example-docker-compose.yml))
 - Replace <site_id> and <api_key> with your own Plausible credentials.
 - Start the Docker Compose again.
 ```
