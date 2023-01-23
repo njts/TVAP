@@ -2,8 +2,8 @@
 FROM node:alpine AS build-stage
 
 # Create a limited user
-RUN adduser -D -u 1001 -s /sbin/nologin appuser
-USER appuser
+RUN adduser -D myuser
+USER myuser
 
 # Set the working directory in the container
 WORKDIR /app
@@ -24,8 +24,8 @@ RUN npm run build
 FROM node:alpine
 
 # Create a limited user
-RUN adduser -D -u 1001 -s /sbin/nologin appuser
-USER appuser
+RUN adduser -D myuser
+USER myuser
 
 # Set the working directory in the container
 WORKDIR /app
