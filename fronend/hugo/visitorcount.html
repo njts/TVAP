@@ -1,0 +1,21 @@
+<div id="visitor-count"></div>
+<script>
+  window.onload = function() {
+    fetch('https://<your-proxy-api-endpoint>/visitors')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("visitor-count").innerHTML = "So far, this place  has been visited by "+"<span class='lcd-number'>"+data.data.results.visitors.value+"</span> virtual strangers.";
+      });
+  }
+</script>
+<style>
+    #visitor-count {
+        text-align: inline;
+    }
+
+    .lcd-number {
+        color: rgb(255, 255, 255);
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>
