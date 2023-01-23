@@ -173,7 +173,10 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 {{ partial "visitorcount.html" . }}
 ```
-
+## To Do
+- [ ] Redis cache
+- [ ] Multi website stats
+- [ ] Serverless
 ## Contribution
 
 We welcome contributions to this project. If you find a bug or have an idea for a new feature, please open an issue on GitHub.
