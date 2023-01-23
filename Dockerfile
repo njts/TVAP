@@ -1,20 +1,37 @@
-FROM node:alpine
+FROM node:alpine as build
 
-RUN addgroup -S app && adduser -S -g app app
+RUN addgroup tvap && adduser -S -G tvap tvap
 
 WORKDIR /app
 
-USER app
-
 COPY package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci
 
 COPY . .
 
+RUN chown -R tvap:tvap /app
+
+USER tvap
+
+RUN npm run build
+
+FROM node:alpine
+
+RUN addgroup tvap && adduser -S -G tvap tvap
+
+WORKDIR /app
+
+COPY --from=build /app/dist /app
+
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+USER tvap
+
+CMD ["npm", "start"]
+
+
+
 
 
 
