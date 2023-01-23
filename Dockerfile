@@ -1,5 +1,5 @@
 # Use the official Node.js Alpine image as the base image
-FROM node:alpine AS build-stage
+FROM node AS build-stage
 
 # Create a limited user
 RUN adduser -D myuser
