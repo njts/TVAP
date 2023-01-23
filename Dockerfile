@@ -9,13 +9,13 @@ USER myuser
 WORKDIR /app
 
 # Copy the package.json and package-lock.json files from the backend directory to the container
-COPY backend/package*.json ./
+COPY package*.json ./
 
 # Install the production dependencies in the container and verify the integrity of the installed npm packages
 RUN npm ci --only=production --verify-only
 
 # Copy the rest of the app's files from the backend directory to the container
-COPY backend/. .
+COPY . .
 
 # Build the app
 RUN npm run build
