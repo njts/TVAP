@@ -5,19 +5,12 @@ const cache = require("memory-cache");
 const fs = require("fs");
 const app = express();
 
-// API settings
 const key = process.env.KEY;
 const site_id = process.env.SITE_ID;
 const base = process.env.BASE;
 const cacheExpire = 300 * 1000; // 5 minutes
 const logFile = "logs/app.log";
 
-// Telegram settings (optional)
-const sendToTelegram = process.env.SEND_TO_TELEGRAM || false;
-const telegramChatId = process.env.TELEGRAM_CHAT_ID;
-const telegramToken = process.env.TELEGRAM_TOKEN;
-
-// Get tomorrow's date
 const today = new Date();
 const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 const tomorrowDate = tomorrow.toISOString().slice(0, 10);
@@ -46,30 +39,6 @@ app.use((req, res, next) => {
   log(`[Valid Request] - Method: ${req.method} - URL: ${req.url}`);
   next();
 });
-
-// Send logs to Telegram
-const sendLogsToTelegram = (logs) => {
-  if (!sendToTelegram || !telegramChatId || !telegramToken) {
-    return;
-  }
-
-  const options = {
-    method: "POST",
-    url: `https://api.telegram.org/bot${telegramToken}/sendMessage`,
-    form: {
-      chat_id: telegramChatId,
-      text: logs.join("\n")
-    }
-  };
-
-  request(options, (error, response) => {
-    if (error) {
-      console.log(`Error sending logs to Telegram: ${error}`);
-    } else {
-      console.log(`Logs sent to Telegram: ${response.body}`);
-    }
-  });
-};
 
 app.get("/visitors", async (req, res) => {
   let data = cache.get("data");
@@ -109,9 +78,7 @@ app.get("/visitors", async (req, res) => {
       return res.status(500).send("Internal Server Error");
     }
   }
-  // Send logs to Telegram if there are any and clear log memory array after sending.
   if (logMemory.length > 0) {
-    sendMemoryLogsToTelegram();
     fs.appendFile(logFile, logMemory.join(""), (err) => {
       if (err) {
         console.log("Error writing to log file");
@@ -123,7 +90,6 @@ app.get("/visitors", async (req, res) => {
   }
 });
 
-// Start server
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });
