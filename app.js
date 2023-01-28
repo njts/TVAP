@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 
   // Log valid request
   // log CF-Connecting-IP after anonymizing it
-  const anonymizedIp = req.headers["cf-connecting-ip"].substring(0, req.headers["cf-connecting-ip"].lastIndexOf(".")) + '.xxx';
+  const anonymizedIp = req.headers["cf-connecting-ip"].substring(0, req.headers["cf-connecting-ip"].lastIndexOf(".")) + '.0';
   log(`[Valid Request] - Method: ${req.method} - URL: ${req.url} - IP: ${anonymizedIp}`);
   next();
 });
