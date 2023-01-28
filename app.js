@@ -9,7 +9,7 @@ const key = process.env.KEY;
 const site_id = process.env.SITE_ID;
 const base = process.env.BASE;
 const cacheExpire = 300 * 1000; // 5 minutes
-const logFile = "logs/app.log";
+const logFile = "/app/logs/app.log";
 
 const today = new Date();
 const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
