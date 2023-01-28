@@ -31,12 +31,16 @@ app.use((req, res, next) => {
 
   // Only allow GET requests to /visitors
   if (req.method !== "GET" || req.url !== "/visitors") {
-    log(`[Invalid Request] - Method: ${req.method} - URL: ${req.url}`);
+    // log CF-Connecting-IP after anonymizing it
+    const anonymizedIp = req.headers["cf-connecting-ip"].substring(0, req.headers["cf-connecting-ip"].lastIndexOf(".")) + '.xxx';
+    log(`[Invalid Request] - Method: ${req.method} - URL: ${req.url} - IP: ${anonymizedIp}`);
     return res.status(405).send("Method not allowed");
   }
 
   // Log valid request
-  log(`[Valid Request] - Method: ${req.method} - URL: ${req.url}`);
+  // log CF-Connecting-IP after anonymizing it
+  const anonymizedIp = req.headers["cf-connecting-ip"].substring(0, req.headers["cf-connecting-ip"].lastIndexOf(".")) + '.xxx';
+  log(`[Valid Request] - Method: ${req.method} - URL: ${req.url} - IP: ${anonymizedIp}`);
   next();
 });
 
