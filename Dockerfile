@@ -10,6 +10,10 @@ RUN npm ci --only=production
 
 COPY . .
 
+RUN mkdir /app/logs
+
+RUN chmod -R 660 /app/logs && chown -R app:app /app/logs
+
 USER app
 
 EXPOSE 3000
